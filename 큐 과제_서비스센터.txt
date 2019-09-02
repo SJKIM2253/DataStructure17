@@ -1,0 +1,137 @@
+#include <stdio.h>
+#include <malloc.h>
+#define size 100
+
+#pragma warning(disable:4996)
+
+
+typedef char element;     //char형을 연결 큐 element의 자료형으로 정의
+typedef struct request{    //연결 큐의 노드를 구조체로 정의
+ 	element name[size];
+ 	element phone[size];
+ 	element service[size];
+ 	struct request *link;
+} request;
+
+typedef struct{           //연결 큐에서 사용하는 포인터 front와 rear를 구조체로 정의
+ 	request *front, *rear;
+} LQueueType;
+
+LQueueType *createLinkedQueue()   //공백 연결 큐 생성 연산
+{
+ 	LQueueType *LQ;
+ 	LQ = (LQueueType *)malloc(sizeof(LQueueType));
+ 	LQ->front=NULL;
+ 	LQ->rear=NULL;
+ 	return LQ;
+}
+
+int isEmpty(LQueueType *LQ)   //연결 큐가 공백인지 확인하는 연산
+{
+ 	if (LQ->front == NULL) {
+ 	   printf("\n 등록되지 않은 고객입니다. \n");
+ 	   return 1;
+ 	}
+ 	else return 0;
+}
+
+void enQueue(LQueueType *LQ) //연결 큐의 rear에 원소를 삽입하는 연산
+{
+ 	request *newNode=(request *)malloc(sizeof(request));
+ 	printf("이름 : ");
+ 	gets(newNode->name);  
+ 	printf("\n전화번호 : ");
+ 	gets(newNode->phone);
+ 	printf("\n서비스 내용  : "); 
+ 	gets(newNode->service);
+ 	newNode->link = NULL;
+ 	printf("\n 등록 완료되었습니다. "); 
+ 	if(LQ->front == NULL) {  //현재 연결 큐가 공백인 경우
+ 	   LQ->front = newNode;
+ 	   LQ->rear = newNode;
+	}
+ 	else {                  //현재 연결 큐가 공백이 아닌 경우
+ 	   LQ->rear->link = newNode;
+ 	   LQ->rear = newNode;
+ 	}
+   }
+
+   element deQueue(LQueueType *LQ) //연결 큐에서 front 원소를 삭제하고 반환하는 연산
+   {
+	request *old = LQ->front;
+ 	if (isEmpty(LQ)) return 0;
+ 	else {
+ 	   LQ->front = LQ->front->link;
+ 	   if(LQ->front == NULL)
+ 	   printf("\n 고객님이 요청하신 서비스가 완료되었습니다.\n", old->name);
+   	   	LQ->rear = NULL;
+ 	   free(old);
+ 	   return 1;
+	 }
+}
+
+void printLQ(LQueueType *LQ)   //연결 큐를 출력하는 연산
+{
+	int i=1;
+ 	request *temp = LQ->front;
+ 	printf("\n 대기번호 \n :");
+ 	while(temp) {
+ 	   printf("%d번 고객님의 %s 서비스가 접수되었습니다.\n",i, temp->name, temp->service);
+ 	   temp = temp->link;
+ 	   i++;
+ 	}
+   }
+
+   void main()
+   {
+ 	LQueueType *LQ1 = createLinkedQueue();
+ 	int a;
+ 	while(a !='4'){
+ 	printf("\n원하는 항목의 숫자를 입력해주세요.\n");
+ 	printf("\n1. 서비스 요청 등록\n");
+ 	printf("\n2. 대기번호 출력\n");
+ 	printf("\n3. 서비스 처리\n");
+ 	printf("\n4. 종료\n");
+	a = getchar(); 
+ 	fflush(stdin); 
+ 	switch(a){
+ 	case '1':
+ 		enQueue(LQ1);
+ 		break;
+ 	case '2':
+ 		printLQ(LQ1);
+ 		break;
+ 	case '3':
+ 		deQueue(LQ1);
+ 		break;
+ 	case '4':
+ 		printf("\n 종료\n"); 
+ 		break;
+ 	default:
+ 		printf("\n 다시 입력해주세요.\n");
+		 }
+
+};
+}
+
+
+/* 	a = getchar(); 
+ 		fflush(stdin); 
+ 		if(a='1'){
+ 			enQueue(LQ1);
+ 			break;}
+ 			else if(a='2'){
+ 			printLQ(LQ1);
+ 			break;}
+ 			else if(a='3'){
+ 			deQueue(LQ1);
+ 			break;}
+ 			else if(a='4'){
+ 			printf("\n 종료\n"); 
+ 			break;}
+ 			else{
+ 			printf("\n다시 입력해주세요.\n");
+			 }
+	 } while ( a != '4');
+	 
+	 */
