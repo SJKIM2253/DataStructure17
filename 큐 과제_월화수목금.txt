@@ -1,21 +1,19 @@
-±â°è°øÇĞ°ú 201310157 ±è¼öÁø
-
 #include <stdio.h>
 #include <malloc.h>
 
 int l;
 
-typedef char element;     //charÇüÀ» ¿¬°á Å¥ elementÀÇ ÀÚ·áÇüÀ¸·Î Á¤ÀÇ
-typedef struct QNode{    //¿¬°á Å¥ÀÇ ³ëµå¸¦ ±¸Á¶Ã¼·Î Á¤ÀÇ
+typedef char element;     //charí˜•ì„ ì—°ê²° í elementì˜ ìë£Œí˜•ìœ¼ë¡œ ì •ì˜
+typedef struct QNode{    //ì—°ê²° íì˜ ë…¸ë“œë¥¼ êµ¬ì¡°ì²´ë¡œ ì •ì˜
  	element data[10];
  	struct QNode *link;
 } QNode;
 
-typedef struct{           //¿¬°á Å¥¿¡¼­ »ç¿ëÇÏ´Â Æ÷ÀÎÅÍ front¿Í rear¸¦ ±¸Á¶Ã¼·Î Á¤ÀÇ
+typedef struct{           //ì—°ê²° íì—ì„œ ì‚¬ìš©í•˜ëŠ” í¬ì¸í„° frontì™€ rearë¥¼ êµ¬ì¡°ì²´ë¡œ ì •ì˜
  	QNode *front, *rear;
 } LQueueType;
 
-LQueueType *createLinkedQueue()   //°ø¹é ¿¬°á Å¥ »ı¼º ¿¬»ê
+LQueueType *createLinkedQueue()   //ê³µë°± ì—°ê²° í ìƒì„± ì—°ì‚°
 {
  	LQueueType *LQ;
  	LQ = (LQueueType *)malloc(sizeof(LQueueType));
@@ -24,7 +22,7 @@ LQueueType *createLinkedQueue()   //°ø¹é ¿¬°á Å¥ »ı¼º ¿¬»ê
  	return LQ;
 }
 
-int isEmpty(LQueueType *LQ)   //¿¬°á Å¥°¡ °ø¹éÀÎÁö È®ÀÎÇÏ´Â ¿¬»ê
+int isEmpty(LQueueType *LQ)   //ì—°ê²° íê°€ ê³µë°±ì¸ì§€ í™•ì¸í•˜ëŠ” ì—°ì‚°
 {
  	if (LQ->front == NULL) {
  	   printf("\n Linked Queue is empty! \n");
@@ -33,24 +31,24 @@ int isEmpty(LQueueType *LQ)   //¿¬°á Å¥°¡ °ø¹éÀÎÁö È®ÀÎÇÏ´Â ¿¬»ê
  	else return 0;
 }
 
-void enQueue(LQueueType *LQ, element item[10]) //¿¬°á Å¥ÀÇ rear¿¡ ¿ø¼Ò¸¦ »ğÀÔÇÏ´Â ¿¬»ê
+void enQueue(LQueueType *LQ, element item[10]) //ì—°ê²° íì˜ rearì— ì›ì†Œë¥¼ ì‚½ì…í•˜ëŠ” ì—°ì‚°
 {
 	int i;
  	QNode *newNode=(QNode *)malloc(sizeof(QNode));
  	for(i=0;i<10;i++){
  	newNode->data[i] = item[i];}
  	newNode->link = NULL;
- 	if(LQ->front == NULL) {  //ÇöÀç ¿¬°á Å¥°¡ °ø¹éÀÎ °æ¿ì
+ 	if(LQ->front == NULL) {  //í˜„ì¬ ì—°ê²° íê°€ ê³µë°±ì¸ ê²½ìš°
  	   LQ->front = newNode;
  	   LQ->rear = newNode;
 	}
- 	else {                  //ÇöÀç ¿¬°á Å¥°¡ °ø¹éÀÌ ¾Æ´Ñ °æ¿ì
+ 	else {                  //í˜„ì¬ ì—°ê²° íê°€ ê³µë°±ì´ ì•„ë‹Œ ê²½ìš°
  	   LQ->rear->link = newNode;
  	   LQ->rear = newNode;
  	}
    }
 
-   element deQueue(LQueueType *LQ) //¿¬°á Å¥¿¡¼­ front ¿ø¼Ò¸¦ »èÁ¦ÇÏ°í ¹İÈ¯ÇÏ´Â ¿¬»ê
+   element deQueue(LQueueType *LQ) //ì—°ê²° íì—ì„œ front ì›ì†Œë¥¼ ì‚­ì œí•˜ê³  ë°˜í™˜í•˜ëŠ” ì—°ì‚°
    {
    	int j;
 	QNode *old = LQ->front;
@@ -68,7 +66,7 @@ void enQueue(LQueueType *LQ, element item[10]) //¿¬°á Å¥ÀÇ rear¿¡ ¿ø¼Ò¸¦ »ğÀÔÇÏ´
 	 }
 }
 
-int del(LQueueType *LQ)    //¿¬°á Å¥¿¡¼­ front ¿ø¼Ò¸¦ »èÁ¦ÇÏ´Â ¿¬»ê
+int del(LQueueType *LQ)    //ì—°ê²° íì—ì„œ front ì›ì†Œë¥¼ ì‚­ì œí•˜ëŠ” ì—°ì‚°
 {
  	QNode *old = LQ->front;
  	if (isEmpty(LQ)) return 0;
@@ -81,7 +79,7 @@ int del(LQueueType *LQ)    //¿¬°á Å¥¿¡¼­ front ¿ø¼Ò¸¦ »èÁ¦ÇÏ´Â ¿¬»ê
   	}
 }
 
-element peek(LQueueType *LQ)  //¿¬°á Å¥¿¡¼­ front ¿ø¼Ò¸¦ °Ë»öÇÏ¿© ¹İÈ¯ÇÏ´Â ¿¬»ê
+element peek(LQueueType *LQ)  //ì—°ê²° íì—ì„œ front ì›ì†Œë¥¼ ê²€ìƒ‰í•˜ì—¬ ë°˜í™˜í•˜ëŠ” ì—°ì‚°
 {
 	int k;
  	element item[10];
@@ -93,7 +91,7 @@ element peek(LQueueType *LQ)  //¿¬°á Å¥¿¡¼­ front ¿ø¼Ò¸¦ °Ë»öÇÏ¿© ¹İÈ¯ÇÏ´Â ¿¬»ê
  	}
 }
 
-void printLQ(LQueueType *LQ)   //¿¬°á Å¥¸¦ Ãâ·ÂÇÏ´Â ¿¬»ê
+void printLQ(LQueueType *LQ)   //ì—°ê²° íë¥¼ ì¶œë ¥í•˜ëŠ” ì—°ì‚°
 {
  	QNode *temp = LQ->front;
  	printf(" Linked Queue : [");
@@ -109,13 +107,13 @@ void printLQ(LQueueType *LQ)   //¿¬°á Å¥¸¦ Ãâ·ÂÇÏ´Â ¿¬»ê
    {
  	LQueueType *LQ1 = createLinkedQueue();
  	element data[10];
- 	printf("»ğÀÔ A>>");  enQueue(LQ1, "¿ù");  printLQ(LQ1);
- 	printf("»ğÀÔ B>>");  enQueue(LQ1, "È­");  printLQ(LQ1);
- 	printf("»èÁ¦  >>");  deQueue(LQ1);     printLQ(LQ1);
- 	printf("»ğÀÔ C>>");  enQueue(LQ1, "¼ö");  printLQ(LQ1);
+ 	printf("ì‚½ì… A>>");  enQueue(LQ1, "ì›”");  printLQ(LQ1);
+ 	printf("ì‚½ì… B>>");  enQueue(LQ1, "í™”");  printLQ(LQ1);
+ 	printf("ì‚­ì œ  >>");  deQueue(LQ1);     printLQ(LQ1);
+ 	printf("ì‚½ì… C>>");  enQueue(LQ1, "ìˆ˜");  printLQ(LQ1);
  	for(l=0;l<10;l++) data[l] = peek(LQ1);  printf(" peek item : %s \n", data);
- 	printf("»ğÀÔ D>>");  enQueue(LQ1, "¸ñ");   printLQ(LQ1);
- 	printf("»ğÀÔ E>>");  enQueue(LQ1, "±İ");   printLQ(LQ1);
+ 	printf("ì‚½ì… D>>");  enQueue(LQ1, "ëª©");   printLQ(LQ1);
+ 	printf("ì‚½ì… E>>");  enQueue(LQ1, "ê¸ˆ");   printLQ(LQ1);
 
  	getchar();
 }
